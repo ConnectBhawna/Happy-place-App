@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HappyPlaceApp">
         <activity
+            android:name=".AddHappyPlaceActivity"
+            android:screenOrientation="portrait"
+            android:label="ADD HAPPY PLACE"
+            android:theme="@style/CustomNoActionBarTheme"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreen"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +26,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
