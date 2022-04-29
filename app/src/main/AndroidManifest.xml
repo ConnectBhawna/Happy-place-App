@@ -8,13 +8,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:editable="false"
         android:theme="@style/Theme.HappyPlaceApp">
         <activity
             android:name=".AddHappyPlaceActivity"
             android:screenOrientation="portrait"
             android:label="ADD HAPPY PLACE"
             android:theme="@style/CustomNoActionBarTheme"
-            android:exported="false" />
+            />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
