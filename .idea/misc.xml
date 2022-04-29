@@ -6,7 +6,8 @@
         <entry key="app/src/main/res/drawable-v24/shape_button_rounded.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/shape_image_view_border.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_action_add_24dp.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_add_happy_place.xml" value="0.1470736629667003" />
+        <entry key="app/src/main/res/drawable/textview_rounded_coreners.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_happy_place.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22509057971014493" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
       </map>
