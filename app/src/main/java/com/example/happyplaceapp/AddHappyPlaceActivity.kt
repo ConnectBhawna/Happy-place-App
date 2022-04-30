@@ -1,12 +1,27 @@
 package com.example.happyplaceapp
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
+import android.widget.Toast
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_add_happy_place.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -31,6 +46,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             updateDateInView()
         }
         et_date.setOnClickListener(this)
+        tv_add_image.setOnClickListener(this)
     }
 
     override fun onClick(v: View?){
@@ -44,9 +60,73 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
             }
+            R.id.tv_add_image -> {
+                val pictureDialog = AlertDialog.Builder(this)
+                pictureDialog.setTitle("Select Action")
+                val pictureDialogItems = arrayOf("Select photo from Gallery",
+                "Capture photo from camera")
+                pictureDialog.setItems(pictureDialogItems){
+                    dialog,which ->
+                    when(which){
+                        0 -> choosePhotoFromGallery()
+                        1 -> Toast.makeText(
+                            this@AddHappyPlaceActivity,
+                            "Camera selection coming soon .....",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                pictureDialog.show()
+            }
         }
     }
 
+    private fun choosePhotoFromGallery(){
+        val withPermission = Dexter.withActivity(this).withPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ).withListener(object: MultiplePermissionsListener{
+            override fun onPermissionsChecked(
+                report: MultiplePermissionsReport?)
+            {
+                if(report!!.areAllPermissionsGranted()){
+                    Toast.makeText(
+                        this@AddHappyPlaceActivity,
+                        "Read/Write permission are granted ,Nw you can select an image from GALLERY",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(permissions : MutableList<PermissionRequest>, token : PermissionToken)
+            {
+                showRationalDialogForPermission()
+            }
+        }).onSameThread().check();
+    }
+
+    private fun showRationalDialogForPermission(){
+        AlertDialog.Builder(this).setMessage(""+
+                "It looks like you turned off permission required " +
+                "for this feature. It can be enabled " +
+                "under the Applications Settings")
+            .setPositiveButton("GO TO SETTINGS")
+            {
+                _,_ ->
+                try {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package",packageName,null)
+                    intent.data = uri
+                    startActivity(intent)
+                }catch (e: ActivityNotFoundException){
+                    e.printStackTrace()
+                }
+            }
+            .setNegativeButton("CANCEL")
+            {  dialog,_ ->
+                dialog.dismiss()
+            }.show()
+    }
     //TODO : here we are updating the date into the view
     private fun updateDateInView(){
         val myFormat = "dd.MM.yyyy"
