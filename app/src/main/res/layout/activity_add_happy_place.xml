@@ -34,6 +34,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:shapeAppearance="@style/Cut"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +47,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_rounded_coreners"
-
                     android:hint="@string/edit_text_hint_title"
                     android:inputType="textCapWords"
                     android:textColor="@color/primary_text_color"
@@ -63,6 +64,8 @@
                 android:layout_marginTop="@dimen/add_screen_til_marginTop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:shapeAppearance="@style/Cut"
                 app:layout_constraintTop_toBottomOf="@+id/til_title">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,6 +89,8 @@
                 android:layout_marginTop="@dimen/add_screen_til_marginTop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:shapeAppearance="@style/Cut"
                 app:layout_constraintTop_toBottomOf="@+id/til_description"
                 >
 
@@ -110,6 +115,8 @@
                 android:layout_marginTop="@dimen/add_screen_til_marginTop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:shapeAppearance="@style/Cut"
                 app:layout_constraintTop_toBottomOf="@+id/til_date"
                 >
 
@@ -135,6 +142,8 @@
                 android:background="@drawable/shape_image_view_border"
                 android:padding="@dimen/add_screen_place_image_padding"
                 android:scaleType="centerCrop"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:src="@drawable/add_screen_image_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
