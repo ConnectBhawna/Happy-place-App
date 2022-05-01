@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_add_happy_place.*
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.graphics.Bitmap;
 
 
 class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
@@ -72,11 +74,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                     dialog,which ->
                     when(which){
                         0 -> choosePhotoFromGallery()
-                        1 -> Toast.makeText(
-                            this@AddHappyPlaceActivity,
-                            "Camera selection coming soon .....",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        1 -> takePhotoFromCamera()
                     }
                 }
                 pictureDialog.show()
@@ -102,9 +100,40 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                     }
                 }
             }
+
+            else if(requestCode == CAMERA){
+                val thumbnail : Bitmap = data!!.extras!!.get("data") as Bitmap
+                iv_place_image.setImageBitmap(thumbnail)
+
+            }
         }
     }
+    //This one is for getting image from Camera
+    private fun takePhotoFromCamera(){
 
+        val withPermission = Dexter.withActivity(this).withPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).withListener(object: MultiplePermissionsListener{
+            override fun onPermissionsChecked(
+                report: MultiplePermissionsReport?)
+            {
+                if(report!!.areAllPermissionsGranted()){
+                    val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(galleryIntent,CAMERA)
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(permissions : MutableList<PermissionRequest>, token : PermissionToken)
+            {
+                showRationalDialogForPermission()
+            }
+        }).onSameThread().check();
+
+    }
+
+    //THis one is for choosing image from Gallery
     private fun choosePhotoFromGallery(){
         val withPermission = Dexter.withActivity(this).withPermissions(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -159,5 +188,6 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
 
     companion object {
         private const val GALLERY = 1
+        private const val CAMERA = 2
     }
 }
