@@ -122,7 +122,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             }
         }
     }
-    //This one is for getting image from Camera
+    //TODO : This one is for getting image from Camera
     private fun takePhotoFromCamera(){
 
         val withPermission = Dexter.withActivity(this).withPermissions(

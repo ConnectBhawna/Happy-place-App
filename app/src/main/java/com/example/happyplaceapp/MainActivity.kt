@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
+       // val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
         fabAddHappyPlace.setOnClickListener{
             val intent = Intent(this,AddHappyPlaceActivity::class.java)
             startActivity(intent)
