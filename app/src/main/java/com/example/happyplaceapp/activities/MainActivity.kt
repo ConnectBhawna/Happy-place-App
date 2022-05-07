@@ -10,12 +10,19 @@ import com.example.happyplaceapp.R
 import com.example.happyplaceapp.adapters.HappyPlacesAdapter
 import com.example.happyplaceapp.database.DatabaseHandler
 import com.example.happyplaceapp.models.HappyPlaceModel
+import kotlinx.android.synthetic.main.activity_add_happy_place.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar_fav_place)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar_fav_place.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         // val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
         fabAddHappyPlace.setOnClickListener {
@@ -43,11 +50,13 @@ class MainActivity : AppCompatActivity() {
         val getHappyPlacesList : ArrayList<HappyPlaceModel> = dbHandler.getHappyPlacesList()
 
         if(getHappyPlacesList.size > 0){
+            toolbar_fav_place.visibility = View.VISIBLE
             rv_happy_places_list.visibility = View.VISIBLE
             tv_no_records_available.visibility = View.GONE
             setupHappyPlacesRecyclerView(getHappyPlacesList)
         }
         else {
+            toolbar_fav_place.visibility = View.VISIBLE
             rv_happy_places_list.visibility = View.GONE
             tv_no_records_available.visibility = View.VISIBLE
         }
