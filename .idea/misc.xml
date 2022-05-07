@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_action_add_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/textview_rounded_coreners.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_happy_place.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_happy_place_detail.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_happy_place.xml" value="0.1" />
