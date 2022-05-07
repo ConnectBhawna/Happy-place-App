@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.happyplaceapp">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -13,6 +14,15 @@
         android:supportsRtl="true"
         android:editable="false"
         android:theme="@style/Theme.HappyPlaceApp">
+
+        <activity
+            android:name="im.dino.dbinspector.activities.DbInspectorActivity"
+            android:exported="true">
+            <intent-filter tools:node="removeAll">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.AddHappyPlaceActivity"
             android:screenOrientation="portrait"
