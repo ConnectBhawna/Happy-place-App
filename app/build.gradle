@@ -45,4 +45,6 @@ dependencies {
     //For using dexter functionalltiy
     implementation 'com.karumi:dexter:6.2.3'
     debugImplementation 'im.dino:dbinspector:3.4.1@aar'
+    //For circular view around image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
