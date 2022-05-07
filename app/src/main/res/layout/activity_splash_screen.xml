@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DDDBDB"
-    tools:context=".SplashScreen">
+    tools:context=".activities.SplashScreen">
 
     <ImageButton
         android:id="@+id/iv_logo"

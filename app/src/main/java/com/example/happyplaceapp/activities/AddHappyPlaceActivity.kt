@@ -1,4 +1,4 @@
-package com.example.happyplaceapp
+package com.example.happyplaceapp.activities
 
 import android.Manifest
 import android.app.Activity
@@ -8,19 +8,16 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
-import android.widget.Gallery
 import android.widget.Toast
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_add_happy_place.*
@@ -29,6 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.graphics.Bitmap;
 import android.util.Log
+import com.example.happyplaceapp.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -39,6 +37,10 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
 
     private val cal = Calendar.getInstance()
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private var saveImageToInternalStorage : Uri? = null
+    private var mLatitude : Double = 0.0
+    private var mLongitude : Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_happy_place)
@@ -59,6 +61,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
         }
         et_date.setOnClickListener(this)
         tv_add_image.setOnClickListener(this)
+        btn_save.setOnClickListener(this)
     }
 
     override fun onClick(v: View?){
@@ -86,6 +89,9 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                 }
                 pictureDialog.show()
             }
+            R.id.btn_save -> {
+                  //TODO save the dataMOdel of the database
+            }
         }
     }
 
@@ -99,7 +105,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                     try {
                         val selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,contentURI)
 
-                        val saveImageToInternalStorage = saveImageToInternalStorage(selectedImageBitmap)
+                        saveImageToInternalStorage = saveImageToInternalStorage(selectedImageBitmap)
                         Log.e("Saved image: ","Path:: $saveImageToInternalStorage")
                         iv_place_image.setImageBitmap(selectedImageBitmap)
                     }catch (e: IOException){
@@ -114,7 +120,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             else if(requestCode == CAMERA){
                 val thumbnail : Bitmap = data!!.extras!!.get("data") as Bitmap
 
-                val saveImageToInternalStorage = saveImageToInternalStorage(thumbnail)
+                saveImageToInternalStorage = saveImageToInternalStorage(thumbnail)
                 Log.e("Saved image: ","Path:: $saveImageToInternalStorage")
 
                 iv_place_image.setImageBitmap(thumbnail)
@@ -135,7 +141,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             {
                 if(report!!.areAllPermissionsGranted()){
                     val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(galleryIntent,CAMERA)
+                    startActivityForResult(galleryIntent, CAMERA)
                 }
             }
 
@@ -159,7 +165,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                 if(report!!.areAllPermissionsGranted()){
                     val galleryIntent = Intent(Intent.ACTION_PICK,
                       MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(galleryIntent,GALLERY)
+                    startActivityForResult(galleryIntent, GALLERY)
                 }
             }
 

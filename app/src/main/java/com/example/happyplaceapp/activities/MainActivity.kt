@@ -1,9 +1,9 @@
-package com.example.happyplaceapp
+package com.example.happyplaceapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.happyplaceapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
        // val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
         fabAddHappyPlace.setOnClickListener{
-            val intent = Intent(this,AddHappyPlaceActivity::class.java)
+            val intent = Intent(this, AddHappyPlaceActivity::class.java)
             startActivity(intent)
         }
     }
