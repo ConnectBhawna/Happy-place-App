@@ -3,6 +3,7 @@ package com.example.happyplaceapp.activities
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telecom.Call
 import com.example.happyplaceapp.R
 import com.example.happyplaceapp.models.HappyPlaceModel
 import kotlinx.android.synthetic.main.activity_happy_place_detail.*
@@ -14,8 +15,9 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
 
         var happyPlaceDetailModel : HappyPlaceModel? = null
         if(intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)){
-            happyPlaceDetailModel = intent.getSerializableExtra(
-                MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+            happyPlaceDetailModel =
+                intent.getParcelableExtra<HappyPlaceModel>(
+                    MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
         }
 
         if(happyPlaceDetailModel != null){
@@ -33,3 +35,4 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
         }
     }
 }
+
