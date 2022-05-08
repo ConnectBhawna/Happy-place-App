@@ -29,4 +29,14 @@
     <dimen name="item_happy_place_ll_marginEnd">2dp</dimen>
     <dimen name="item_happy_place_title_textSize">16sp</dimen>
     <dimen name="item_happy_place_description_textSize">14sp</dimen>
+
+    <!--All the dimen values used for designing the view for Happy Places Detail
+    Activity are added here-->
+
+    <dimen name="detail_screen_image_height_size">250dp</dimen>
+    <dimen name="detail_screen_description_margin">8dp</dimen>
+    <dimen name="detail_screen_description_text_size">16sp</dimen>
+    <dimen name="detail_screen_location_marginStartEnd">8dp</dimen>
+    <dimen name="detail_screen_location_marginTop">16dp</dimen>
+    <dimen name="detail_screen_location_text_size">18sp</dimen>
 </resources>
