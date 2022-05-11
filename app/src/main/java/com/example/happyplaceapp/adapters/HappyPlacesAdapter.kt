@@ -1,12 +1,16 @@
 package com.example.happyplaceapp.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happyplaceapp.R
+import com.example.happyplaceapp.activities.AddHappyPlaceActivity
+import com.example.happyplaceapp.activities.MainActivity
 import com.example.happyplaceapp.models.HappyPlaceModel
 import kotlinx.android.synthetic.main.item_happy_place.view.*
 
@@ -19,7 +23,7 @@ open class HappyPlacesAdapter(
 
     // TODO (Add a variable for onClickListener interface.)
     private var onClickListener: OnClickListener? = null
-    // END
+
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -70,7 +74,24 @@ open class HappyPlacesAdapter(
     fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
-    // END
+
+    // TODO (Create a function to edit the happy place details which is inserted earlier and pass the details through intent.)
+
+    /**
+     * A function to edit the added happy place detail and pass the existing details through intent.
+     */
+    fun notifyEditItem(activity: Activity, position: Int, requestCode: Int) {
+        val intent = Intent(context, AddHappyPlaceActivity::class.java)
+        intent.putExtra(MainActivity.EXTRA_PLACE_DETAILS, list[position])
+        activity.startActivityForResult(
+            intent,
+            requestCode
+        ) // Activity is started with requestCode
+
+        notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
+    }
+
+
 
     // TODO (Create an interface for onclickListener)
     interface OnClickListener {

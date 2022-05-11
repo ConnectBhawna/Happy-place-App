@@ -43,6 +43,8 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
     private var mLatitude : Double = 0.0
     private var mLongitude : Double = 0.0
 
+    private var mHappyPlaceDetails : HappyPlaceModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_happy_place)
@@ -51,6 +53,11 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar_add_place.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        if(intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)){
+            mHappyPlaceDetails = intent.getParcelableExtra<HappyPlaceModel>(
+                MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
         }
 
         dateSetListener = DatePickerDialog.OnDateSetListener{
@@ -62,6 +69,23 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             updateDateInView()
         }
         updateDateInView()
+
+        if(mHappyPlaceDetails != null){
+             supportActionBar?.title = "Edit Happy Place"
+
+            et_description.setText(mHappyPlaceDetails!!.description)
+            et_date.setText(mHappyPlaceDetails!!.date)
+            et_location.setText(mHappyPlaceDetails!!.location)
+            mLatitude = mHappyPlaceDetails!!.latitude
+            mLongitude = mHappyPlaceDetails!!.longitude
+
+            saveImageToInternalStorage = Uri.parse(mHappyPlaceDetails!!.image)
+
+            iv_place_image.setImageURI(saveImageToInternalStorage)
+
+            btn_save.text = "UPDATE"
+
+        }
         et_date.setOnClickListener(this)
         tv_add_image.setOnClickListener(this)
         btn_save.setOnClickListener(this)

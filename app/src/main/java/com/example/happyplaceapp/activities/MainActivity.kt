@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.happyplaceapp.R
 import com.example.happyplaceapp.adapters.HappyPlacesAdapter
 import com.example.happyplaceapp.database.DatabaseHandler
 import com.example.happyplaceapp.models.HappyPlaceModel
+import com.example.happyplaceapp.utils.SwipeToEditCallback
 import kotlinx.android.synthetic.main.activity_add_happy_place.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.FieldPosition
@@ -56,6 +59,17 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+        // TODO(Bind the edit feature class to recyclerview)
+        val editSwipeHandler = object : SwipeToEditCallback(this){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // TODO (Call the adapter function when it is swiped)
+                   val adapter = rv_happy_places_list.adapter as HappyPlacesAdapter
+                   adapter.notifyEditItem(this@MainActivity,viewHolder.adapterPosition, ADD_PLACE_ACTIVITY_REQUEST_CODE)
+            }
+        }
+
+        val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+        editItemTouchHelper.attachToRecyclerView(rv_happy_places_list)
 
     }
 
