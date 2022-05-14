@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.happyplaceapp.R
 import com.example.happyplaceapp.activities.AddHappyPlaceActivity
 import com.example.happyplaceapp.activities.MainActivity
+import com.example.happyplaceapp.database.DatabaseHandler
 import com.example.happyplaceapp.models.HappyPlaceModel
 import kotlinx.android.synthetic.main.item_happy_place.view.*
 
@@ -103,6 +104,16 @@ open class HappyPlacesAdapter(
      */
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun removeAt(position: Int) {
+        val dbHandler = DatabaseHandler(context)
+        val isDeleted = dbHandler.deleteHappyPlace(list[position])
+
+        if (isDeleted > 0) {
+            list.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
     /**
