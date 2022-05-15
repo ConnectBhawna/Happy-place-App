@@ -25,10 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar_fav_place)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar_fav_place.setNavigationOnClickListener {
-            onBackPressed()
-        }
+       // supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         // val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
         fabAddHappyPlace.setOnClickListener {
