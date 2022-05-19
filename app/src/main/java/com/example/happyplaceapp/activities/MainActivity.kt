@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_fav_place)
        // supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+//Checking purpose
         // val fabAddHappyPlace = findViewById<FloatingActionButton>(R.id.fabAddHappyPlace)
         fabAddHappyPlace.setOnClickListener {
             val intent = Intent(this, AddHappyPlaceActivity::class.java)
