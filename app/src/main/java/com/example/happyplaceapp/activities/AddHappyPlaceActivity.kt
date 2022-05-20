@@ -29,6 +29,12 @@ import android.util.Log
 import com.example.happyplaceapp.R
 import com.example.happyplaceapp.database.DatabaseHandler
 import com.example.happyplaceapp.models.HappyPlaceModel
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.libraries.places.widget.AutocompleteActivity
+
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -53,6 +59,12 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar_add_place.setNavigationOnClickListener {
             onBackPressed()
+        }
+        if (!Places.isInitialized()) {
+            Places.initialize(
+                this@AddHappyPlaceActivity,
+                resources.getString(R.string.google_maps_api_key)
+            )
         }
 
         if(intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)){
@@ -89,6 +101,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
         et_date.setOnClickListener(this)
         tv_add_image.setOnClickListener(this)
         btn_save.setOnClickListener(this)
+        et_location.setOnClickListener(this)
     }
 
     override fun onClick(v: View?){
@@ -116,6 +129,24 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                 }
                 pictureDialog.show()
             }
+            R.id.et_location -> {
+                try {
+                    // These are the list of fields which we required is passed
+                    val fields = listOf(
+                        Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG,
+                        Place.Field.ADDRESS
+                    )
+                    // Start the autocomplete intent with a unique request code.
+                    val intent =
+
+                        Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                            .build(this@AddHappyPlaceActivity)
+                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
             R.id.btn_save -> {
                   //TODO save the dataMOdel of the database
                 when {
@@ -145,13 +176,13 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                         if(mHappyPlaceDetails == null){
                             val addHappyPlace = dbHandler.addHappyPlace(happyPlaceModel)
                             if(addHappyPlace > 0){
-                                setResult(Activity.RESULT_OK)
+                                setResult(RESULT_OK)
                                 finish()
                             }
                         }else{
                             val updateHappyPlace = dbHandler.updateHappyPlace(happyPlaceModel)
                             if(updateHappyPlace > 0){
-                                setResult(Activity.RESULT_OK)
+                                setResult(RESULT_OK)
                                 finish()
                             }
                         }
@@ -161,6 +192,7 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                     }
                 }
             }
+
         }
     }
 
@@ -195,7 +227,20 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
                 iv_place_image.setImageBitmap(thumbnail)
 
             }
+            else if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+
+                val place: Place = Autocomplete.getPlaceFromIntent(data!!)
+
+                et_location.setText(place.address)
+                mLatitude = place.latLng!!.latitude
+                mLongitude = place.latLng!!.longitude
+            }
+
         }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.e("Cancelled", "Cancelled")
+        }
+
     }
     //TODO : This one is for getting image from Camera
     private fun takePhotoFromCamera(){
@@ -295,5 +340,8 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
         private const val GALLERY = 1
         private const val CAMERA = 2
         private const val IMAGE_DIRECTORY = "HappyPlacesImages"
+        // A constant variable for place picker
+        private const val PLACE_AUTOCOMPLETE_REQUEST_CODE = 3
+
     }
 }

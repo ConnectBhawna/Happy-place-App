@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_delete_white_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_edit_white_24dp.xml" value="0.1605" />
         <entry key="app/src/main/res/drawable/textview_rounded_coreners.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_add_happy_place.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_happy_place.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_happy_place_detail.xml" value="0.12" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
