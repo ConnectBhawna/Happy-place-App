@@ -230,7 +230,6 @@ class AddHappyPlaceActivity : AppCompatActivity(),View.OnClickListener {
             else if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
 
                 val place: Place = Autocomplete.getPlaceFromIntent(data!!)
-
                 et_location.setText(place.address)
                 mLatitude = place.latLng!!.latitude
                 mLongitude = place.latLng!!.longitude
