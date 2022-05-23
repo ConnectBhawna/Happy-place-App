@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">HappyPlaceApp</string>
-
     <string name="edit_text_hint_title">Title</string>
     <string name="edit_text_hint_description">Description</string>
     <string name="edit_text_hint_date">Date</string>
@@ -9,6 +8,6 @@
     <string name="btn_text_save">SAVE</string>
     <string name="no_happy_places_found_yet_kindly_add_one">No Happy Places Found Yet. Kindly add one.</string>
     <string name="image_content_description">image</string>
-    <string name="google_maps_api_key">AIzaSyDONKwH8WeY1zgBzcOOBKeApvbAop5cdv4</string>
+    <string name="google_maps_api_key">AIzaSyCdRoXhsVmzRuhPNXfEZbzSzRnxBr6j8X8</string>
 
 </resources>
